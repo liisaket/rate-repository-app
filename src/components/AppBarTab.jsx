@@ -3,18 +3,6 @@ import { Link } from "react-router-native";
 import Text from "./Text";
 import theme from "../theme";
 
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-  },
-  text: {
-    color: theme.colors.appBarText,
-    fontSize: theme.fontSizes.subheading,
-    fontWeight: theme.fontWeights.bold,
-    padding: 15,
-  },
-});
-
 const AppBarTab = () => {
   return (
     <View style={styles.container}>
@@ -31,5 +19,17 @@ const AppBarTab = () => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+  },
+  text: {
+    color: theme.colors.primaryW,
+    fontSize: theme.fontSizes.subheading,
+    fontWeight: theme.fontWeights.bold,
+    padding: 15,
+  },
+});
 
 export default AppBarTab;

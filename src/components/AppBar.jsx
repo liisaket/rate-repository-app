@@ -3,13 +3,6 @@ import Constants from "expo-constants";
 import theme from "../theme";
 import AppBarTab from "./AppBarTab";
 
-const styles = StyleSheet.create({
-  container: {
-    paddingTop: Constants.statusBarHeight,
-    backgroundColor: theme.colors.appBarBG,
-  },
-});
-
 const AppBar = () => {
   return (
     <View style={styles.container}>
@@ -19,5 +12,12 @@ const AppBar = () => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    paddingTop: Constants.statusBarHeight,
+    backgroundColor: theme.colors.appBarBG,
+  },
+});
 
 export default AppBar;

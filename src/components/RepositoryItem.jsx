@@ -3,46 +3,6 @@ import { View, Image, StyleSheet } from "react-native";
 import Text from "./Text";
 import theme from "../theme";
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "white",
-    padding: 10,
-    flexDirection: "row",
-  },
-  image: {
-    width: 50,
-    height: 50,
-    borderRadius: 4,
-    marginRight: 10,
-  },
-  contentContainer: {
-    flex: 1,
-  },
-  languageContainer: {
-    backgroundColor: theme.colors.primary,
-    paddingVertical: 4,
-    paddingHorizontal: 8,
-    borderRadius: 4,
-    alignSelf: "flex-start",
-    marginTop: 4,
-  },
-  languageText: {
-    color: "white",
-    fontSize: theme.fontSizes.body,
-  },
-  statsContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 10,
-  },
-  statItem: {
-    alignItems: "center",
-  },
-  statText: {
-    fontWeight: "bold",
-  },
-});
-
 const format = (number) => {
   if (number >= 1000) {
     return `${(number / 1000).toFixed(1)}k`;
@@ -87,5 +47,45 @@ const RepositoryItem = ({ item }) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: theme.colors.primaryW,
+    padding: 10,
+    flexDirection: "row",
+  },
+  image: {
+    width: 50,
+    height: 50,
+    borderRadius: 4,
+    marginRight: 10,
+  },
+  contentContainer: {
+    flex: 1,
+  },
+  languageContainer: {
+    backgroundColor: theme.colors.primary,
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+    borderRadius: 4,
+    alignSelf: "flex-start",
+    marginTop: 4,
+  },
+  languageText: {
+    color: theme.colors.primaryW,
+    fontSize: theme.fontSizes.body,
+  },
+  statsContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 10,
+  },
+  statItem: {
+    alignItems: "center",
+  },
+  statText: {
+    fontWeight: theme.fontWeights.bold,
+  },
+});
 
 export default RepositoryItem;
