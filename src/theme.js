@@ -5,7 +5,8 @@ const theme = {
     primary: '#0366d6',
     appBarBG: '#24292e',
     primaryW: 'white',
-    mainBG: '#e1e4e8'
+    mainBG: '#e1e4e8',
+    error: '#d73a4a'
   },
   fontSizes: {
     body: 14,
