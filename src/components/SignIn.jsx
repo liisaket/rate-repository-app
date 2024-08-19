@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   input: {
+    fontFamily: theme.fonts.main,
     height: 50,
     width: "100%",
     marginVertical: 10,
