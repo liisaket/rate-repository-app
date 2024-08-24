@@ -12,7 +12,7 @@ const format = (number) => {
 
 const RepositoryItem = ({ item }) => {
   return (
-    <View style={styles.container}>
+    <View style={styles.container} testID="repositoryItem">
       <Image
         style={styles.image}
         source={{
