@@ -25,6 +25,18 @@ const theme = {
     normal: '400',
     bold: '700',
   },
+  blueButton: {
+    backgroundColor: '#0366d6',
+    borderRadius: 5,
+    padding: 15,
+    alignItems: "center",
+    marginTop: 10,
+  },
+  blueButtonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '700',
+  },
 };
 
 export default theme;
