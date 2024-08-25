@@ -1,6 +1,7 @@
 import '@testing-library/jest-native/extend-expect';
-import { render, screen, within } from '@testing-library/react-native';
+import { render } from '@testing-library/react-native';
 import { RepositoryListContainer } from "../../components/RepositoryList";
+import { NativeRouter } from 'react-router-native';
 
 describe('RepositoryList', () => {
   describe('RepositoryListContainer', () => {
@@ -49,7 +50,8 @@ describe('RepositoryList', () => {
       };
 
       const { getAllByTestId } = render(
-        <RepositoryListContainer repositories={repositories} />
+        <NativeRouter>
+          <RepositoryListContainer repositories={repositories} /></NativeRouter>
       );
       const repositoryItems = getAllByTestId('repositoryItem');
 

@@ -1,7 +1,9 @@
 import React from "react";
-import { View, Image, StyleSheet } from "react-native";
+import { View, Image, StyleSheet, Pressable } from "react-native";
 import Text from "./Text";
 import theme from "../theme";
+import { useParams } from "react-router-native";
+import * as Linking from "expo-linking";
 
 const format = (number) => {
   if (number >= 1000) {
@@ -11,6 +13,12 @@ const format = (number) => {
 };
 
 const RepositoryItem = ({ item }) => {
+  const id = useParams();
+
+  const openLink = () => {
+    Linking.openURL(item.url);
+  };
+
   return (
     <View style={styles.container} testID="repositoryItem">
       <Image
@@ -43,6 +51,13 @@ const RepositoryItem = ({ item }) => {
             <Text>Rating</Text>
           </View>
         </View>
+        {Object.keys(id).length != 0 && (
+          <View>
+            <Pressable style={theme.blueButton} onPress={openLink}>
+              <Text style={theme.blueButtonText}>Open in GitHub</Text>
+            </Pressable>
+          </View>
+        )}
       </View>
     </View>
   );

@@ -47,8 +47,8 @@ export const SignInContainer = ({ onSubmit }) => {
       {pwdError && (
         <Text style={styles.errorMsg}>{formik.errors.password}</Text>
       )}
-      <Pressable style={styles.button} onPress={formik.handleSubmit}>
-        <Text style={styles.buttonText}>Sign in</Text>
+      <Pressable style={theme.blueButton} onPress={formik.handleSubmit}>
+        <Text style={theme.blueButtonText}>Sign in</Text>
       </Pressable>
     </View>
   );
@@ -90,18 +90,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderColor: "#ddd",
     fontSize: theme.fontSizes.subheading,
-  },
-  button: {
-    backgroundColor: theme.colors.primary,
-    borderRadius: 5,
-    padding: 15,
-    alignItems: "center",
-    marginTop: 10,
-  },
-  buttonText: {
-    color: theme.colors.primaryW,
-    fontSize: theme.fontSizes.subheading,
-    fontWeight: theme.fontWeights.bold,
   },
   errorInput: {
     borderColor: theme.colors.error,
