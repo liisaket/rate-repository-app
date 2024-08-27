@@ -7,6 +7,7 @@ import theme from "../theme";
 import SignIn from "./SignIn";
 import SingleRepository from "./SingleRepository";
 import Review from "./ReviewForm";
+import SignUp from "./SignUp";
 
 const Main = () => {
   return (
@@ -16,6 +17,7 @@ const Main = () => {
         <Route path="/" element={<RepositoryList />} />
         <Route path="*" element={<Navigate to="/" replace />} />
         <Route path="/sign-in" element={<SignIn />} />
+        <Route path="sign-up" element={<SignUp />} />
         <Route path="/:id" element={<SingleRepository />} />
         <Route path="/review" element={<Review />} />
       </Routes>
