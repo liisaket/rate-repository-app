@@ -30,15 +30,29 @@ const FormikTextInput = ({ name, ...props }) => {
 
   return (
     <>
-      <TextInput
-        style={[styles.input, showError && styles.errorInput]}
-        onChangeText={(value) => helpers.setValue(value)}
-        onBlur={() => helpers.setTouched(true)}
-        value={field.value}
-        error={showError}
-        {...props}
-        placeholderTextColor="#888"
-      />
+      {name == "review" ? (
+        <TextInput
+          style={[styles.input, showError && styles.errorInput]}
+          onChangeText={(value) => helpers.setValue(value)}
+          onBlur={() => helpers.setTouched(true)}
+          value={field.value}
+          error={showError}
+          {...props}
+          placeholderTextColor="#888"
+          multiline
+        />
+      ) : (
+        <TextInput
+          style={[styles.input, showError && styles.errorInput]}
+          onChangeText={(value) => helpers.setValue(value)}
+          onBlur={() => helpers.setTouched(true)}
+          value={field.value}
+          error={showError}
+          {...props}
+          placeholderTextColor="#888"
+        />
+      )}
+
       {showError && <Text style={styles.errorMsg}>{meta.error}</Text>}
     </>
   );

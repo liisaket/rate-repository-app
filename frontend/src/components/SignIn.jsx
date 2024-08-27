@@ -1,7 +1,7 @@
 import * as yup from "yup";
-import { TextInput, Pressable, View, StyleSheet } from "react-native";
+import { Pressable, View, StyleSheet } from "react-native";
 import { useNavigate } from "react-router-native";
-import { Formik, useFormik } from "formik";
+import { Formik } from "formik";
 import Text from "./Text";
 import theme from "../theme";
 import useSignIn from "../hooks/useSignIn";

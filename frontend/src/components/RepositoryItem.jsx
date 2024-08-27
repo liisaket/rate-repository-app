@@ -30,9 +30,11 @@ const RepositoryItem = ({ item }) => {
       <View style={styles.contentContainer}>
         <Text fontWeight="bold">{item.fullName}</Text>
         <Text>{item.description}</Text>
-        <View style={styles.languageContainer}>
-          <Text style={styles.languageText}>{item.language}</Text>
-        </View>
+        {item.language && (
+          <View style={styles.languageContainer}>
+            <Text style={styles.languageText}>{item.language}</Text>
+          </View>
+        )}
         <View style={styles.statsContainer}>
           <View style={styles.statItem}>
             <Text fontWeight="bold">{format(item.stargazersCount)}</Text>

@@ -6,6 +6,7 @@ import AppBar from "./AppBar";
 import theme from "../theme";
 import SignIn from "./SignIn";
 import SingleRepository from "./SingleRepository";
+import Review from "./ReviewForm";
 
 const Main = () => {
   return (
@@ -16,6 +17,7 @@ const Main = () => {
         <Route path="*" element={<Navigate to="/" replace />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/:id" element={<SingleRepository />} />
+        <Route path="/review" element={<Review />} />
       </Routes>
     </View>
   );
