@@ -3,7 +3,6 @@ import { View, Image, StyleSheet, Pressable } from "react-native";
 import Text from "./Text";
 import theme from "../theme";
 import { useParams } from "react-router-native";
-import * as Linking from "expo-linking";
 
 const format = (number) => {
   if (number >= 1000) {

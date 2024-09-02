@@ -1,5 +1,6 @@
 import { StyleSheet, View } from "react-native";
 import { Route, Routes, Navigate } from "react-router-native";
+import { useState } from "react";
 
 import RepositoryList from "./RepositoryList";
 import AppBar from "./AppBar";
@@ -10,11 +11,19 @@ import Review from "./ReviewForm";
 import SignUp from "./SignUp";
 
 const Main = () => {
+  const [order, setOrder] = useState({
+    orderBy: "CREATED_AT",
+    orderDirection: "DESC",
+  });
+
   return (
     <View style={styles.container}>
       <AppBar />
       <Routes>
-        <Route path="/" element={<RepositoryList />} />
+        <Route
+          path="/"
+          element={<RepositoryList order={order} setOrder={setOrder} />}
+        />
         <Route path="*" element={<Navigate to="/" replace />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="sign-up" element={<SignUp />} />

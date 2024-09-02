@@ -10,12 +10,16 @@ import AuthStorageContext from './src/contexts/AuthStorageContext';
 const authStorage = new AuthStorage();
 const apolloClient = createApolloClient(authStorage);
 
+import { PaperProvider } from 'react-native-paper';
+
 const App = () => {
   return (
     <NativeRouter>
       <ApolloProvider client={apolloClient}>
         <AuthStorageContext.Provider value={authStorage}>
-          <Main />
+          <PaperProvider>
+            <Main />
+          </PaperProvider>
         </AuthStorageContext.Provider>
       </ApolloProvider>
     </NativeRouter>
