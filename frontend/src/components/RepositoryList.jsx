@@ -1,12 +1,14 @@
-import { useState } from "react";
 import { FlatList, View, StyleSheet, Pressable } from "react-native";
 import { useNavigate } from "react-router-native";
 import RepositoryItem from "./RepositoryItem";
 import useRepositories from "../hooks/useRepositories";
-import theme from "../theme";
-import { Menu, Button } from "react-native-paper";
+import Sorter from "./FilterAndSorter";
 
-export const RepositoryListContainer = ({ repositories, setOrder }) => {
+export const RepositoryListContainer = ({
+  repositories,
+  setOrder,
+  setFilter,
+}) => {
   const repositoryNodes = repositories
     ? repositories.edges.map((edge) => edge.node)
     : [];
@@ -22,78 +24,30 @@ export const RepositoryListContainer = ({ repositories, setOrder }) => {
           <RepositoryItem item={item} />
         </Pressable>
       )}
-      ListHeaderComponent={<Sorter setOrder={setOrder} />}
+      ListHeaderComponent={<Sorter setOrder={setOrder} setFilter={setFilter} />}
     />
   );
 };
 
-const RepositoryList = ({ order, setOrder }) => {
-  const { repositories } = useRepositories(order);
+const RepositoryList = ({ order, setOrder, filter, setFilter }) => {
+  const { repositories } = useRepositories({
+    orderBy: order.orderBy,
+    orderDirection: order.orderDirection,
+    searchKeyword: filter,
+  });
 
   return (
-    <RepositoryListContainer repositories={repositories} setOrder={setOrder} />
-  );
-};
-
-const Sorter = ({ setOrder }) => {
-  const [selectedValue, setSelected] = useState("Latest repositories");
-  const [visible, setVisible] = useState(false);
-
-  const openMenu = () => setVisible(true);
-  const closeMenu = () => setVisible(false);
-
-  const handleOrder = ({ orderBy, orderDirection }) => {
-    setOrder({ orderBy, orderDirection });
-    closeMenu();
-  };
-
-  return (
-    <View style={styles.menuContainer}>
-      <Menu
-        visible={visible}
-        onDismiss={closeMenu}
-        anchor={
-          <Button style={styles.menuText} onPress={openMenu}>
-            {selectedValue}
-          </Button>
-        }
-      >
-        <Menu.Item title="Select an item..." />
-        <Menu.Item
-          title="Latest repositories"
-          onPress={() => {
-            setSelected("Latest repositories");
-            handleOrder({ orderBy: "CREATED_AT", orderDirection: "DESC" });
-          }}
-        />
-        <Menu.Item
-          title="Highest rated repositories"
-          onPress={() => {
-            setSelected("Highest rated repositories");
-            handleOrder({ orderBy: "RATING_AVERAGE", orderDirection: "DESC" });
-          }}
-        />
-        <Menu.Item
-          title="Lowest rated repositories"
-          onPress={() => {
-            setSelected("Lowest rated repositories");
-            handleOrder({ orderBy: "RATING_AVERAGE", orderDirection: "ASC" });
-          }}
-        />
-      </Menu>
-    </View>
+    <RepositoryListContainer
+      repositories={repositories}
+      setOrder={setOrder}
+      setFilter={setFilter}
+    />
   );
 };
 
 const styles = StyleSheet.create({
   separator: {
     height: 10,
-  },
-  menuContainer: {
-    padding: 15,
-    flexDirection: "row",
-    justifyContent: "left",
-    backgroundColor: theme.colors.mainBG,
   },
 });
 

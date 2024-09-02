@@ -16,13 +16,22 @@ const Main = () => {
     orderDirection: "DESC",
   });
 
+  const [filter, setFilter] = useState("");
+
   return (
     <View style={styles.container}>
       <AppBar />
       <Routes>
         <Route
           path="/"
-          element={<RepositoryList order={order} setOrder={setOrder} />}
+          element={
+            <RepositoryList
+              order={order}
+              setOrder={setOrder}
+              filter={filter}
+              setFilter={setFilter}
+            />
+          }
         />
         <Route path="*" element={<Navigate to="/" replace />} />
         <Route path="/sign-in" element={<SignIn />} />

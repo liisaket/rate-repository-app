@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 import { GET_REPOSITORIES } from '../graphql/queries';
 
-const useRepositories = ({ orderBy, orderDirection }) => {
+const useRepositories = ({ orderBy, orderDirection, searchKeyword }) => {
   const [repositories, setRepositories] = useState();
   const { data, error, loading, refetch } = useQuery(GET_REPOSITORIES, {
     fetchPolicy: 'cache-and-network',
-    variables: { orderBy, orderDirection }
+    variables: { orderBy, orderDirection, searchKeyword }
   });
 
   useEffect(() => {
@@ -16,8 +16,8 @@ const useRepositories = ({ orderBy, orderDirection }) => {
   }, [data]);
 
   useEffect(() => {
-    refetch({ orderBy, orderDirection });
-  }, [orderBy, orderDirection, refetch]);
+    refetch({ orderBy, orderDirection, searchKeyword });
+  }, [orderBy, orderDirection, searchKeyword, refetch]);
 
   return { repositories, loading, refetch };
 };
