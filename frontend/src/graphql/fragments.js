@@ -29,6 +29,9 @@ export const REVIEW_BASE_FIELDS = gql`
     edges {
       node {
         id
+        repository {
+          fullName
+        }
         text
         rating
         createdAt

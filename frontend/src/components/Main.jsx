@@ -9,6 +9,7 @@ import SignIn from "./SignIn";
 import SingleRepository from "./SingleRepository";
 import Review from "./ReviewForm";
 import SignUp from "./SignUp";
+import MyReviews from "./MyReviews";
 
 const Main = () => {
   const [order, setOrder] = useState({
@@ -38,6 +39,7 @@ const Main = () => {
         <Route path="sign-up" element={<SignUp />} />
         <Route path="/:id" element={<SingleRepository />} />
         <Route path="/review" element={<Review />} />
+        <Route path="/my-reviews" element={<MyReviews />} />
       </Routes>
     </View>
   );

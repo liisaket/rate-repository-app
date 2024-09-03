@@ -9,7 +9,7 @@ import RepositoryItem from "./RepositoryItem";
 
 const SingleRepository = () => {
   const { id } = useParams();
-  const { data, loading, error, refetch } = useQuery(GET_REPOSITORY, {
+  const { data, loading, error } = useQuery(GET_REPOSITORY, {
     fetchPolicy: "cache-and-network",
     variables: { id },
   });
@@ -20,7 +20,7 @@ const SingleRepository = () => {
   return (
     <FlatList
       data={data.repository.reviews.edges.map((edge) => edge.node)}
-      renderItem={({ item }) => <SingleReview item={item} />}
+      renderItem={({ item }) => <SingleReview id={id} item={item} />}
       keyExtractor={({ id }) => id}
       ListHeaderComponent={() => <RepositoryItem item={data.repository} />}
       ItemSeparatorComponent={ItemSeparator}
@@ -28,7 +28,7 @@ const SingleRepository = () => {
   );
 };
 
-const SingleReview = ({ item }) => {
+export const SingleReview = ({ id, item }) => {
   return (
     <View style={styles.reviewContainer}>
       <View style={styles.ratingContainer}>
@@ -37,7 +37,11 @@ const SingleReview = ({ item }) => {
         </View>
       </View>
       <View style={styles.reviewText}>
-        <Text fontWeight="bold">{item.user.username}</Text>
+        {id ? (
+          <Text fontWeight="bold">{item.user.username}</Text>
+        ) : (
+          <Text fontWeight="bold">{item.repository.fullName}</Text>
+        )}
         <Text style={styles.createdAt}>
           {new Date(item.createdAt).toLocaleDateString()}
         </Text>
