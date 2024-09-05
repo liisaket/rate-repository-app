@@ -1,14 +1,17 @@
 import React from "react";
-import { View, FlatList, StyleSheet } from "react-native";
+import { View, FlatList, StyleSheet, Pressable, Alert } from "react-native";
 import Text from "./Text";
 import { useParams } from "react-router-native";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { GET_REPOSITORY } from "../graphql/queries";
+import { DELETE_REVIEW } from "../graphql/mutations";
 import theme from "../theme";
+import { Link } from "react-router-native";
 import RepositoryItem from "./RepositoryItem";
 
 const SingleRepository = () => {
   const { id } = useParams();
+
   const { data, loading, error } = useQuery(GET_REPOSITORY, {
     fetchPolicy: "cache-and-network",
     variables: { id },
@@ -28,7 +31,37 @@ const SingleRepository = () => {
   );
 };
 
-export const SingleReview = ({ id, item }) => {
+export const SingleReview = ({ id, item, refetch }) => {
+  const [deleteReview] = useMutation(DELETE_REVIEW);
+
+  const handleDeletion = async () => {
+    console.log("pressed");
+    Alert.alert(
+      "Delete review",
+      `Are you sure you want to delete this review of repository ${item.repository.fullName}?`,
+      [
+        {
+          text: "Cancel",
+          onPress: () => {},
+          style: "cancel",
+        },
+        {
+          text: "DELETE",
+          onPress: async () => {
+            try {
+              await deleteReview({
+                variables: { id: item.id },
+              });
+              refetch();
+            } catch (error) {
+              console.log("Error occured:", error);
+            }
+          },
+        },
+      ]
+    );
+  };
+
   return (
     <View style={styles.reviewContainer}>
       <View style={styles.ratingContainer}>
@@ -46,6 +79,16 @@ export const SingleReview = ({ id, item }) => {
           {new Date(item.createdAt).toLocaleDateString()}
         </Text>
         <Text>{item.text}</Text>
+        {!id && (
+          <View style={styles.buttonContainer}>
+            <Link style={theme.blueButton} to={`/${item.repositoryId}`}>
+              <Text style={theme.blueButtonText}>View repository</Text>
+            </Link>
+            <Pressable style={styles.deleteButton} onPress={handleDeletion}>
+              <Text style={theme.blueButtonText}>Delete review</Text>
+            </Pressable>
+          </View>
+        )}
       </View>
     </View>
   );
@@ -88,6 +131,17 @@ const styles = StyleSheet.create({
   separator: {
     height: 10,
     backgroundColor: theme.colors.background,
+  },
+  deleteButton: {
+    backgroundColor: "#D6394C",
+    borderRadius: 5,
+    padding: 15,
+    alignItems: "center",
+    marginTop: 10,
+    marginLeft: 10,
+  },
+  buttonContainer: {
+    flexDirection: "row",
   },
 });
 

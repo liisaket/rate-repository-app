@@ -29,6 +29,7 @@ export const REVIEW_BASE_FIELDS = gql`
     edges {
       node {
         id
+        repositoryId
         repository {
           fullName
         }

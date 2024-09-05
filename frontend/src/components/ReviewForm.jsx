@@ -1,12 +1,13 @@
 import * as yup from "yup";
 import { Pressable, View, StyleSheet } from "react-native";
 import { useNavigate } from "react-router-native";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { Formik } from "formik";
 import Text from "./Text";
 import theme from "../theme";
 import FormikTextInput from "./FormikTextInput";
 import { CREATE_REVIEW } from "../graphql/mutations";
+import { GET_CURRENT_USER } from "../graphql/queries";
 
 const initialValues = {
   owner: "",
@@ -45,6 +46,13 @@ const Review = () => {
   const [newReview] = useMutation(CREATE_REVIEW);
   const navigate = useNavigate();
 
+  const { data, loading, error, refetch } = useQuery(GET_CURRENT_USER, {
+    variables: { includeReviews: true },
+  });
+  const currentUser = data?.me;
+  if (loading) return;
+  if (error) return;
+
   const onSubmit = async (values) => {
     const { owner, repository, rating, review } = values;
     try {
@@ -61,6 +69,7 @@ const Review = () => {
       if (data) {
         navigate(`/${data.createReview.repositoryId}`);
       }
+      refetch();
     } catch (error) {
       console.error("Error:", error);
       throw error;

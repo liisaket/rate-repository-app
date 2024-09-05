@@ -5,7 +5,7 @@ import { GET_CURRENT_USER } from "../graphql/queries";
 import { SingleReview } from "./SingleRepository";
 
 const MyReviews = () => {
-  const { data, loading, error } = useQuery(GET_CURRENT_USER, {
+  const { data, loading, error, refetch } = useQuery(GET_CURRENT_USER, {
     variables: { includeReviews: true },
   });
   const currentUser = data?.me;
@@ -15,7 +15,9 @@ const MyReviews = () => {
   return (
     <FlatList
       data={currentUser.reviews.edges.map((edge) => edge.node)}
-      renderItem={({ item }) => <SingleReview id={null} item={item} />}
+      renderItem={({ item }) => (
+        <SingleReview id={null} item={item} refetch={refetch} />
+      )}
       ItemSeparatorComponent={ItemSeparator}
     />
   );
