@@ -1,32 +1,38 @@
-import React from "react";
 import { View, FlatList, StyleSheet, Pressable, Alert } from "react-native";
 import Text from "./Text";
 import { useParams } from "react-router-native";
-import { useMutation, useQuery } from "@apollo/client";
-import { GET_REPOSITORY } from "../graphql/queries";
+import { useMutation } from "@apollo/client";
 import { DELETE_REVIEW } from "../graphql/mutations";
 import theme from "../theme";
 import { Link } from "react-router-native";
 import RepositoryItem from "./RepositoryItem";
+import useRepository from "../hooks/useRepository";
 
 const SingleRepository = () => {
   const { id } = useParams();
 
-  const { data, loading, error } = useQuery(GET_REPOSITORY, {
-    fetchPolicy: "cache-and-network",
-    variables: { id },
+  const { repository, loading, fetchMore } = useRepository({
+    first: 4,
+    id: id,
   });
 
+  if (!repository) return;
   if (loading) return;
-  if (error) return;
+
+  const onEndReach = () => {
+    console.log("You have reached the end of the list");
+    fetchMore();
+  };
 
   return (
     <FlatList
-      data={data.repository.reviews.edges.map((edge) => edge.node)}
+      data={repository.reviews.edges.map((edge) => edge.node)}
       renderItem={({ item }) => <SingleReview id={id} item={item} />}
       keyExtractor={({ id }) => id}
-      ListHeaderComponent={() => <RepositoryItem item={data.repository} />}
+      ListHeaderComponent={() => <RepositoryItem item={repository} />}
       ItemSeparatorComponent={ItemSeparator}
+      onEndReached={onEndReach}
+      onEndReachedThreshold={0.15}
     />
   );
 };

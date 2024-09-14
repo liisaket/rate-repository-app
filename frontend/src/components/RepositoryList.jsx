@@ -8,6 +8,7 @@ export const RepositoryListContainer = ({
   repositories,
   setOrder,
   setFilter,
+  onEndReach,
 }) => {
   const repositoryNodes = repositories
     ? repositories.edges.map((edge) => edge.node)
@@ -25,22 +26,31 @@ export const RepositoryListContainer = ({
         </Pressable>
       )}
       ListHeaderComponent={<Sorter setOrder={setOrder} setFilter={setFilter} />}
+      onEndReached={onEndReach}
+      onEndReachedThreshold={0.5}
     />
   );
 };
 
 const RepositoryList = ({ order, setOrder, filter, setFilter }) => {
-  const { repositories } = useRepositories({
+  const { repositories, fetchMore } = useRepositories({
+    first: 5,
     orderBy: order.orderBy,
     orderDirection: order.orderDirection,
     searchKeyword: filter,
   });
+
+  const onEndReach = () => {
+    console.log("You have reached the end of the list");
+    fetchMore();
+  };
 
   return (
     <RepositoryListContainer
       repositories={repositories}
       setOrder={setOrder}
       setFilter={setFilter}
+      onEndReach={onEndReach}
     />
   );
 };
