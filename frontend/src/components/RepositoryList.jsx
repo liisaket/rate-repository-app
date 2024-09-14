@@ -34,7 +34,7 @@ export const RepositoryListContainer = ({
 
 const RepositoryList = ({ order, setOrder, filter, setFilter }) => {
   const { repositories, fetchMore } = useRepositories({
-    first: 5,
+    first: 6,
     orderBy: order.orderBy,
     orderDirection: order.orderDirection,
     searchKeyword: filter,
