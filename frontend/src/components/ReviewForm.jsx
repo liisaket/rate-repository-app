@@ -49,7 +49,7 @@ const Review = () => {
   const { data, loading, error, refetch } = useQuery(GET_CURRENT_USER, {
     variables: { includeReviews: true },
   });
-  const currentUser = data?.me;
+
   if (loading) return;
   if (error) return;
 
